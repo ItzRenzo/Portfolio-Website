@@ -27,7 +27,7 @@
         "avatar": "/renzo-profile/renzo-profile.jpg",
         "href": "https://discord.com/users/379976158915067904",
         "fallbackStatus": "Status unavailable",
-        "presenceApi": "http://127.0.0.1:8787/api/discord-presence",
+        "presenceApi": "http://23.27.211.33:25714/api/discord-presence",
         "refreshMs": 60000
     },
     "metrics": [
