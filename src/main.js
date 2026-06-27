@@ -2,15 +2,34 @@ import "./styles.css";
 import projects from "./data/projects.json";
 import gallery from "./data/gallery.json";
 import site from "./data/site.json";
-import { byDisplayOrder, emptyState, escapeHtml, galleryCard, icon, projectCard, revealOnScroll, setCurrentYear, setupChrome } from "./ui.js";
+import {
+    byDisplayOrder,
+    emptyState,
+    escapeHtml,
+    galleryCard,
+    icon,
+    projectCard,
+    revealOnScroll,
+    setCurrentYear,
+    setupChrome,
+    setupLazyMedia
+} from "./ui.js";
 
-const featuredProjects = byDisplayOrder(projects).filter((project) => project.featured);
+const marketplaceProjects = byDisplayOrder(projects).filter((project) => project.featured !== false);
 const orderedGallery = byDisplayOrder(gallery);
+
+function applyHeroBackground() {
+    if (!site.backgroundImage) return;
+
+    document.querySelectorAll(".hero-media").forEach((element) => {
+        element.style.setProperty("--hero-image", `url("${site.backgroundImage}")`);
+    });
+}
 
 function replaceMetricTokens(value) {
     return String(value)
         .replace("{projectCount}", projects.length)
-        .replace("{featuredProjectCount}", featuredProjects.length)
+        .replace("{featuredProjectCount}", marketplaceProjects.length)
         .replace("{galleryCount}", orderedGallery.length);
 }
 
@@ -22,6 +41,20 @@ function renderHero() {
     const profileImage = document.querySelector("[data-profile-image]");
     if (profileImage) {
         profileImage.src = site.profileImage;
+        profileImage.decoding = "async";
+        profileImage.fetchPriority = "high";
+    }
+
+    const summary = site.summary ?? {};
+    document.querySelector("[data-summary-eyebrow]").textContent = summary.eyebrow ?? "";
+    document.querySelector("[data-summary-title]").textContent = summary.title ?? "";
+    document.querySelector("[data-summary-copy]").textContent = summary.copy ?? "";
+
+    const serviceTarget = document.querySelector("[data-summary-services]");
+    if (serviceTarget) {
+        serviceTarget.innerHTML = (summary.services ?? [])
+            .map((service) => `<span>${escapeHtml(service)}</span>`)
+            .join("");
     }
 
     const metricTarget = document.querySelector("[data-metrics]");
@@ -37,45 +70,49 @@ function renderHero() {
             )
             .join("");
     }
-
-    const consoleTarget = document.querySelector("[data-console-points]");
-    if (consoleTarget) {
-        consoleTarget.innerHTML = site.consolePoints
-            .map(
-                (point) => `
-                    <div class="console-point">
-                        ${icon("check")}
-                        <span>${escapeHtml(point)}</span>
-                    </div>
-                `
-            )
-            .join("");
-    }
 }
 
-function renderTrustStrip() {
-    const target = document.querySelector("[data-trust-strip]");
+function serverLogoCard(logo, duplicate = false) {
+    return `
+        <article class="server-logo-card" ${duplicate ? 'aria-hidden="true"' : ""}>
+            <img
+                src="${escapeHtml(logo.image)}"
+                alt="${duplicate ? "" : `${escapeHtml(logo.name)} server logo`}"
+                width="220"
+                height="110"
+                loading="lazy"
+                decoding="async"
+            />
+            <span>${escapeHtml(logo.name)}</span>
+        </article>
+    `;
+}
+
+function renderServerLogos() {
+    const target = document.querySelector("[data-server-logos]");
+    const logos = site.serverLogos ?? [];
     if (!target) return;
 
-    target.innerHTML = site.trust
-        .map(
-            (item) => `
-                <div class="trust-pill">
-                    <strong>${escapeHtml(item.label)}</strong>
-                    <span>${escapeHtml(item.description)}</span>
-                </div>
-            `
-        )
-        .join("");
+    if (!logos.length) {
+        target.innerHTML = emptyState("No server logos available yet", "Add logos to public/server-logos to show them here.");
+        return;
+    }
+
+    target.innerHTML = `
+        <div class="logo-marquee-track">
+            ${logos.map((logo) => serverLogoCard(logo)).join("")}
+            ${logos.map((logo) => serverLogoCard(logo, true)).join("")}
+        </div>
+    `;
 }
 
 function renderProjects() {
     const target = document.querySelector("[data-featured-projects]");
     if (!target) return;
 
-    target.innerHTML = featuredProjects.length
-        ? featuredProjects.map((project, index) => projectCard(project, index)).join("")
-        : emptyState("No projects available yet", "Check back soon for featured Minecraft builds.");
+    target.innerHTML = marketplaceProjects.length
+        ? marketplaceProjects.map((project, index) => projectCard(project, index)).join("")
+        : emptyState("No BuiltByBit work available yet", "Check back soon for new Minecraft resources.");
 }
 
 function renderExpertise() {
@@ -88,6 +125,7 @@ function renderExpertise() {
                 <article class="expertise-card reveal" style="transition-delay: ${Math.min(index * 50, 180)}ms">
                     <div class="icon-box">${icon(card.icon)}</div>
                     <h3 class="mt-5 text-xl">${escapeHtml(card.title)}</h3>
+                    ${card.copy ? `<p class="expertise-copy">${escapeHtml(card.copy)}</p>` : ""}
                     <ul>
                         ${card.items.map((item) => `<li>${icon("check")}<span>${escapeHtml(item)}</span></li>`).join("")}
                     </ul>
@@ -95,6 +133,38 @@ function renderExpertise() {
             `
         )
         .join("");
+}
+
+function renderStudio() {
+    const studio = site.studio;
+    if (!studio) return;
+
+    const logo = document.querySelector("[data-studio-logo]");
+    if (logo) {
+        logo.src = studio.logo;
+    }
+
+    document.querySelector("[data-studio-eyebrow]").textContent = studio.eyebrow ?? "";
+    document.querySelector("[data-studio-title]").textContent = studio.title ?? studio.name ?? "";
+    document.querySelector("[data-studio-copy]").textContent = studio.copy ?? "";
+
+    const serviceTarget = document.querySelector("[data-studio-services]");
+    if (serviceTarget) {
+        serviceTarget.innerHTML = (studio.services ?? []).map((service) => `<span>${escapeHtml(service)}</span>`).join("");
+    }
+
+    const linkTarget = document.querySelector("[data-studio-links]");
+    if (linkTarget) {
+        linkTarget.innerHTML = (studio.links ?? [])
+            .map(
+                (link) => `
+                    <a class="${link.primary ? "primary-button" : "secondary-button"}" href="${escapeHtml(link.href)}" target="_blank" rel="noopener noreferrer">
+                        ${icon(link.icon)} ${escapeHtml(link.label)}
+                    </a>
+                `
+            )
+            .join("");
+    }
 }
 
 function renderGalleryPreview() {
@@ -106,7 +176,7 @@ function renderGalleryPreview() {
         return;
     }
 
-    const previewCards = orderedGallery.slice(0, 5).map((item, index) => galleryCard(item, index)).join("");
+    const previewCards = orderedGallery.slice(0, 4).map((item, index) => galleryCard(item, index, { eager: false })).join("");
     target.innerHTML = `
         ${previewCards}
         <a class="gallery-card view-more reveal" href="/gallery/">
@@ -137,12 +207,15 @@ function renderContacts() {
         .join("");
 }
 
+applyHeroBackground();
 renderHero();
-renderTrustStrip();
+renderServerLogos();
 renderProjects();
+renderStudio();
 renderExpertise();
 renderGalleryPreview();
 renderContacts();
 setupChrome();
 setCurrentYear();
+setupLazyMedia();
 revealOnScroll();

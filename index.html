@@ -20,22 +20,26 @@
                         <span class="brand-glyph" aria-hidden="true">IR</span>
                         <span>ItzRenzo</span>
                     </a>
-                    <button class="menu-toggle md:hidden" type="button" aria-controls="mobile-menu" aria-expanded="false" data-menu-toggle>
+                    <button class="menu-toggle lg:hidden" type="button" aria-controls="mobile-menu" aria-expanded="false" data-menu-toggle>
                         <span class="sr-only">Toggle navigation</span>
                         <span></span>
                         <span></span>
                         <span></span>
                     </button>
-                    <div class="hidden items-center gap-7 md:flex">
-                        <a class="nav-link" href="#projects">Projects</a>
+                    <div class="hidden items-center gap-5 lg:flex">
+                        <a class="nav-link" href="#servers">Servers</a>
+                        <a class="nav-link" href="#projects">BuiltByBit</a>
+                        <a class="nav-link" href="#studio">Studio</a>
                         <a class="nav-link" href="#expertise">Expertise</a>
                         <a class="nav-link" href="#gallery">Gallery</a>
                         <a class="nav-link" href="#contact">Contact</a>
                         <a class="nav-cta" href="#contact">Start a Project</a>
                     </div>
                 </nav>
-                <div id="mobile-menu" class="mobile-menu hidden md:hidden" data-mobile-menu>
-                    <a href="#projects">Projects</a>
+                <div id="mobile-menu" class="mobile-menu hidden lg:hidden" data-mobile-menu>
+                    <a href="#servers">Servers</a>
+                    <a href="#projects">BuiltByBit</a>
+                    <a href="#studio">Studio</a>
                     <a href="#expertise">Expertise</a>
                     <a href="#gallery">Gallery</a>
                     <a href="#contact">Contact</a>
@@ -51,11 +55,12 @@
                             <p class="eyebrow" data-hero-eyebrow></p>
                             <h1 class="hero-title" data-hero-title></h1>
                             <p class="hero-copy" data-hero-copy></p>
+                            <div class="summary-services" data-summary-services></div>
                             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                                <a class="primary-button" href="#projects">View Projects</a>
+                                <a class="primary-button" href="#projects">View BuiltByBit Work</a>
                                 <a class="secondary-button" href="#contact">Start a Project</a>
                             </div>
-                            <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4" data-metrics></div>
+                            <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4" data-metrics></div>
                         </div>
 
                         <div class="relative z-10 reveal" style="transition-delay: 120ms">
@@ -66,43 +71,58 @@
                                     <span></span>
                                 </div>
                                 <div class="profile-frame">
-                                    <img data-profile-image alt="ItzRenzo profile portrait" />
+                                    <img data-profile-image alt="ItzRenzo profile portrait" width="320" height="320" />
                                     <div>
-                                        <p class="text-sm uppercase tracking-[0.24em] text-cyan-200/70">Developer Console</p>
-                                        <h2 class="mt-2 font-display text-2xl font-black text-white">Minecraft Systems</h2>
-                                        <p class="mt-3 text-sm leading-6 text-slate-300">
-                                            Server setups, RPG configs, GUI systems, custom items, and polished gameplay loops.
-                                        </p>
+                                        <p class="text-sm uppercase text-cyan-200/70" data-summary-eyebrow></p>
+                                        <h2 class="mt-2 font-display text-2xl font-black text-white" data-summary-title></h2>
+                                        <p class="mt-3 text-sm leading-6 text-slate-300" data-summary-copy></p>
                                     </div>
                                 </div>
-                                <div class="console-grid" data-console-points></div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="section-band py-10" aria-labelledby="trust-title">
-                    <div class="mx-auto max-w-6xl px-5 md:px-8">
-                        <h2 id="trust-title" class="sr-only">Social proof</h2>
-                        <p class="mb-4 text-center text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Portfolio signals</p>
-                        <div class="trust-marquee" data-trust-strip></div>
+                <section id="servers" class="logo-strip-section" aria-labelledby="servers-title">
+                    <div class="content-section logo-strip-shell">
+                        <div class="logo-strip-heading reveal">
+                            <p class="eyebrow">Servers Worked With</p>
+                            <h2 id="servers-title">Trusted by server teams and communities.</h2>
+                            <p>Logos from Minecraft servers I have helped with setup, configuration, development, or optimization work.</p>
+                        </div>
+                        <div class="logo-marquee reveal" aria-label="Servers ItzRenzo has worked with" data-server-logos></div>
                     </div>
                 </section>
 
                 <section id="projects" class="content-section" aria-labelledby="projects-title">
                     <div class="section-heading reveal">
-                        <p class="eyebrow">Featured Work</p>
-                        <h2 id="projects-title">Server builds with launch-day polish.</h2>
-                        <p>Selected Minecraft resources and configurations built for clean player experiences, sharp UI, and practical server ownership.</p>
+                        <p class="eyebrow">BuiltByBit Featured Work</p>
+                        <h2 id="projects-title">Server setups and plugin configurations ready for owners.</h2>
+                        <p>Marketplace resources I have built for server owners who want RPG progression, custom gear, clean configuration, and launch-ready structure.</p>
                     </div>
                     <div class="project-grid" data-featured-projects></div>
+                </section>
+
+                <section id="studio" class="content-section" aria-labelledby="studio-title">
+                    <div class="studio-panel reveal">
+                        <div class="studio-logo-card">
+                            <img data-studio-logo alt="NetherForge Studios logo" width="360" height="360" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="studio-content">
+                            <p class="eyebrow" data-studio-eyebrow></p>
+                            <h2 id="studio-title" data-studio-title></h2>
+                            <p data-studio-copy></p>
+                            <div class="studio-services" data-studio-services></div>
+                            <div class="studio-actions" data-studio-links></div>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="expertise" class="content-section" aria-labelledby="expertise-title">
                     <div class="section-heading reveal">
                         <p class="eyebrow">Why Work With ItzRenzo</p>
-                        <h2 id="expertise-title">The setup work players actually feel.</h2>
-                        <p>Inspired by game-tech landing pages, rebuilt around portfolio proof: systems, polish, performance, and support.</p>
+                        <h2 id="expertise-title">Clean systems before the server opens.</h2>
+                        <p>Focused development, configuration, setup, and optimization work that helps owners launch confidently and players understand what to do next.</p>
                     </div>
                     <div class="expertise-grid" data-expertise></div>
                 </section>
@@ -111,7 +131,7 @@
                     <div class="section-heading reveal">
                         <p class="eyebrow">Preview Gallery</p>
                         <h2 id="gallery-title">A quick look at recent server details.</h2>
-                        <p>GUI work, animated menus, custom mobs, scoreboards, and other gameplay surfaces from current setups.</p>
+                        <p>GUI work, animated menus, custom mobs, scoreboards, and other gameplay surfaces, loaded only as they are needed.</p>
                     </div>
                     <div class="gallery-grid" data-gallery-preview></div>
                 </section>
@@ -121,7 +141,7 @@
                         <div>
                             <p class="eyebrow">Contact</p>
                             <h2 id="contact-title">Have a server idea that needs structure?</h2>
-                            <p>Reach out for Minecraft setups, plugin configuration, RPG systems, menu design, or project collaboration.</p>
+                            <p>Reach out for plugin development, Minecraft server setups, plugin configuration, server optimization, or project collaboration.</p>
                         </div>
                         <div class="contact-grid" data-contact-links></div>
                     </div>
@@ -140,7 +160,9 @@
                         </p>
                     </div>
                     <div class="footer-links">
-                        <a href="#projects">Projects</a>
+                        <a href="#servers">Servers</a>
+                        <a href="#projects">BuiltByBit</a>
+                        <a href="#studio">Studio</a>
                         <a href="#expertise">Expertise</a>
                         <a href="/gallery/">Gallery</a>
                         <a href="#contact">Contact</a>
