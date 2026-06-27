@@ -17,6 +17,28 @@ import {
 
 const marketplaceProjects = byDisplayOrder(projects).filter((project) => project.featured !== false);
 const orderedGallery = byDisplayOrder(gallery);
+const discordStatusMeta = {
+    online: {
+        label: "Online now",
+        className: "is-online"
+    },
+    idle: {
+        label: "Idle",
+        className: "is-idle"
+    },
+    dnd: {
+        label: "Do not disturb",
+        className: "is-dnd"
+    },
+    offline: {
+        label: "Offline",
+        className: "is-offline"
+    },
+    unknown: {
+        label: "Status unavailable",
+        className: "is-unknown"
+    }
+};
 
 function applyHeroBackground() {
     if (!site.backgroundImage) return;
@@ -38,18 +60,7 @@ function renderHero() {
     document.querySelector("[data-hero-copy]").textContent = site.hero.copy;
     document.querySelector("[data-hero-title]").innerHTML = escapeHtml(site.hero.title).replace("Minecraft", '<span class="accent">Minecraft</span>');
 
-    const profileImage = document.querySelector("[data-profile-image]");
-    if (profileImage) {
-        profileImage.src = site.profileImage;
-        profileImage.decoding = "async";
-        profileImage.fetchPriority = "high";
-    }
-
     const summary = site.summary ?? {};
-    document.querySelector("[data-summary-eyebrow]").textContent = summary.eyebrow ?? "";
-    document.querySelector("[data-summary-title]").textContent = summary.title ?? "";
-    document.querySelector("[data-summary-copy]").textContent = summary.copy ?? "";
-
     const serviceTarget = document.querySelector("[data-summary-services]");
     if (serviceTarget) {
         serviceTarget.innerHTML = (summary.services ?? [])
@@ -69,6 +80,90 @@ function renderHero() {
                 `
             )
             .join("");
+    }
+}
+
+function getDiscordAvatarUrl(user, fallbackAvatar) {
+    if (!user?.id || !user?.avatar) return fallbackAvatar;
+
+    const extension = user.avatar.startsWith("a_") ? "gif" : "webp";
+    return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=256`;
+}
+
+function setDiscordPresence(status = "unknown", customText = "") {
+    const statusKey = discordStatusMeta[status] ? status : "unknown";
+    const meta = discordStatusMeta[statusKey];
+    const statusText = document.querySelector("[data-discord-status-text]");
+    const presence = document.querySelector("[data-discord-presence]");
+    const dot = document.querySelector("[data-discord-status-dot]");
+
+    if (statusText) {
+        statusText.textContent = customText ? (statusKey === "unknown" ? customText : `${meta.label} - ${customText}`) : meta.label;
+    }
+
+    [presence, dot].forEach((element) => {
+        if (!element) return;
+        element.classList.remove("is-online", "is-idle", "is-dnd", "is-offline", "is-unknown");
+        element.classList.add(meta.className);
+    });
+}
+
+function setDiscordIdentity(profile, user = null) {
+    const avatar = document.querySelector("[data-discord-avatar]");
+    const name = document.querySelector("[data-discord-name]");
+    const username = document.querySelector("[data-discord-username]");
+    const note = document.querySelector("[data-discord-note]");
+    const link = document.querySelector("[data-discord-link]");
+    const displayName = user?.global_name || user?.display_name || profile.displayName || site.name;
+    const handle = user?.username ? `@${user.username}` : `@${profile.username ?? "itzrenzo"}`;
+
+    if (avatar) {
+        avatar.src = getDiscordAvatarUrl(user, profile.avatar || site.profileImage);
+        avatar.decoding = "async";
+        avatar.fetchPriority = "high";
+    }
+
+    if (name) name.textContent = displayName;
+    if (username) username.textContent = handle;
+    if (note) note.textContent = profile.note ?? "";
+    if (link) link.href = profile.href ?? "#contact";
+}
+
+function getCustomDiscordStatus(activities = []) {
+    return activities.find((activity) => activity.type === 4)?.state ?? "";
+}
+
+async function fetchDiscordPresence(profile) {
+    if (!profile.userId) {
+        setDiscordPresence("unknown", profile.fallbackStatus ?? "");
+        return;
+    }
+
+    try {
+        const presenceApi = profile.presenceApi ?? "https://api.lanyard.rest/v1/users";
+        const response = await fetch(`${presenceApi}/${profile.userId}`, { cache: "no-store" });
+        if (!response.ok) throw new Error("Discord presence request failed");
+
+        const payload = await response.json();
+        if (!payload.success || !payload.data) throw new Error("Discord presence unavailable");
+
+        setDiscordIdentity(profile, payload.data.discord_user);
+        setDiscordPresence(payload.data.discord_status, getCustomDiscordStatus(payload.data.activities));
+    } catch {
+        setDiscordPresence("unknown", profile.fallbackStatus ?? "Status unavailable");
+    }
+}
+
+function renderDiscordProfile() {
+    const profile = site.discordProfile ?? {};
+    const refreshMs = Number(profile.refreshMs) || 60000;
+
+    setDiscordIdentity(profile);
+    setDiscordPresence("unknown", profile.userId ? "Checking live status" : profile.fallbackStatus);
+    fetchDiscordPresence(profile);
+
+    if (profile.userId && refreshMs >= 30000) {
+        window.setInterval(() => fetchDiscordPresence(profile), refreshMs);
     }
 }
 
@@ -209,6 +304,7 @@ function renderContacts() {
 
 applyHeroBackground();
 renderHero();
+renderDiscordProfile();
 renderServerLogos();
 renderProjects();
 renderStudio();

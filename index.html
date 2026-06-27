@@ -70,13 +70,25 @@
                                     <span></span>
                                     <span></span>
                                 </div>
-                                <div class="profile-frame">
-                                    <img data-profile-image alt="ItzRenzo profile portrait" width="320" height="320" />
-                                    <div>
-                                        <p class="text-sm uppercase text-cyan-200/70" data-summary-eyebrow></p>
-                                        <h2 class="mt-2 font-display text-2xl font-black text-white" data-summary-title></h2>
-                                        <p class="mt-3 text-sm leading-6 text-slate-300" data-summary-copy></p>
+                                <div class="discord-profile-card" data-discord-card>
+                                    <div class="discord-banner" aria-hidden="true"></div>
+                                    <div class="discord-identity">
+                                        <div class="discord-avatar-wrap">
+                                            <img data-discord-avatar alt="ItzRenzo Discord avatar" width="112" height="112" />
+                                            <span class="discord-status-dot is-unknown" data-discord-status-dot aria-hidden="true"></span>
+                                        </div>
+                                        <div class="discord-meta">
+                                            <p>Discord Profile</p>
+                                            <h2 data-discord-name></h2>
+                                            <span data-discord-username></span>
+                                        </div>
                                     </div>
+                                    <div class="discord-presence is-unknown" data-discord-presence role="status" aria-live="polite">
+                                        <span class="discord-presence-label">Presence</span>
+                                        <strong data-discord-status-text>Checking status...</strong>
+                                    </div>
+                                    <p class="discord-note" data-discord-note></p>
+                                    <a class="secondary-button discord-action" href="https://discord.gg/qTQGTNcApS" data-discord-link target="_blank" rel="noopener noreferrer">Message on Discord</a>
                                 </div>
                             </div>
                         </div>

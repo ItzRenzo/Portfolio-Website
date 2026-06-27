@@ -20,6 +20,17 @@
             "Server Optimization"
         ]
     },
+    "discordProfile": {
+        "userId": "",
+        "displayName": "ItzRenzo",
+        "username": "itzrenzo",
+        "avatar": "/renzo-profile/renzo-profile.jpg",
+        "href": "https://discord.gg/qTQGTNcApS",
+        "note": "Message me on Discord for server setups, plugin configuration, or project questions.",
+        "fallbackStatus": "Status unavailable",
+        "presenceApi": "https://api.lanyard.rest/v1/users",
+        "refreshMs": 60000
+    },
     "metrics": [
         {
             "value": "20+",
