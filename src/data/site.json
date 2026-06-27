@@ -6,7 +6,7 @@
     "backgroundImage": "/hero-background.png",
     "hero": {
         "eyebrow": "Minecraft Server Setups and Plugin Development",
-        "title": "Build a Minecraft server players remember.",
+        "title": "Hey, I'm Renzo",
         "copy": "I help server owners turn messy ideas into polished Minecraft experiences with plugin development, server setups, plugin configuration, and performance optimization."
     },
     "summary": {
@@ -21,31 +21,31 @@
         ]
     },
     "discordProfile": {
-        "userId": "",
-        "displayName": "ItzRenzo",
+        "userId": "379976158915067904",
+        "displayName": "Renzo",
         "username": "itzrenzo",
+        "profileUrl": "discord.com/users/379976158915067904",
         "avatar": "/renzo-profile/renzo-profile.jpg",
-        "href": "https://discord.gg/qTQGTNcApS",
-        "note": "Message me on Discord for server setups, plugin configuration, or project questions.",
+        "href": "https://discord.com/users/379976158915067904",
         "fallbackStatus": "Status unavailable",
-        "presenceApi": "https://api.lanyard.rest/v1/users",
+        "presenceApi": "https://api.statusbadges.me/presence",
         "refreshMs": 60000
     },
     "metrics": [
         {
-            "value": "20+",
+            "value": "50+",
             "label": "Clients"
         },
         {
-            "value": "4+",
+            "value": "10+",
             "label": "Servers"
         },
         {
-            "value": "10+",
+            "value": "60+",
             "label": "Plugins Built"
         },
         {
-            "value": "3+",
+            "value": "4+",
             "label": "Years Experience"
         }
     ],
@@ -65,6 +65,14 @@
         {
             "name": "BoxRealm",
             "image": "/server-logos/boxrealm.png"
+        },
+        {
+            "name": "Minecave",
+            "image": "/server-logos/minecave.png"
+        },
+        {
+            "name": "PokeMeadow",
+            "image": "/server-logos/pokemeadow.png"
         }
     ],
     "studio": {
@@ -81,18 +89,13 @@
         ],
         "links": [
             {
-                "label": "Order on BuiltByBit",
+                "label": "Buy on BuiltByBit",
                 "href": "https://builtbybit.com/creators/itzrenzo.435252/",
                 "icon": "store",
                 "primary": true
             },
             {
-                "label": "GitHub",
-                "href": "https://github.com/NetherForge-Studios",
-                "icon": "github"
-            },
-            {
-                "label": "Discord",
+                "label": "Order on Discord",
                 "href": "https://discord.gg/J49Z6vkc34",
                 "icon": "discord"
             }

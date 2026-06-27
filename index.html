@@ -64,32 +64,39 @@
                         </div>
 
                         <div class="relative z-10 reveal" style="transition-delay: 120ms">
-                            <div class="profile-console">
-                                <div class="console-topbar" aria-hidden="true">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <div class="discord-profile-card" data-discord-card>
-                                    <div class="discord-banner" aria-hidden="true"></div>
+                            <div class="profile-console discord-shell">
+                                <a
+                                    class="discord-profile-card"
+                                    href="https://discord.com/users/379976158915067904"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-discord-card
+                                >
                                     <div class="discord-identity">
                                         <div class="discord-avatar-wrap">
                                             <img data-discord-avatar alt="ItzRenzo Discord avatar" width="112" height="112" />
                                             <span class="discord-status-dot is-unknown" data-discord-status-dot aria-hidden="true"></span>
                                         </div>
                                         <div class="discord-meta">
-                                            <p>Discord Profile</p>
                                             <h2 data-discord-name></h2>
-                                            <span data-discord-username></span>
+                                            <p data-discord-url></p>
+                                            <span data-discord-status-text aria-live="polite">Checking status...</span>
                                         </div>
                                     </div>
-                                    <div class="discord-presence is-unknown" data-discord-presence role="status" aria-live="polite">
-                                        <span class="discord-presence-label">Presence</span>
-                                        <strong data-discord-status-text>Checking status...</strong>
+                                    <div class="discord-activity is-hidden" data-discord-activity>
+                                        <div class="discord-activity-icon" aria-hidden="true">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <div class="discord-activity-copy">
+                                            <span data-discord-activity-type></span>
+                                            <strong data-discord-activity-name></strong>
+                                            <p data-discord-activity-detail></p>
+                                            <small data-discord-activity-time></small>
+                                        </div>
                                     </div>
-                                    <p class="discord-note" data-discord-note></p>
-                                    <a class="secondary-button discord-action" href="https://discord.gg/qTQGTNcApS" data-discord-link target="_blank" rel="noopener noreferrer">Message on Discord</a>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -99,8 +106,8 @@
                     <div class="content-section logo-strip-shell">
                         <div class="logo-strip-heading reveal">
                             <p class="eyebrow">Servers Worked With</p>
-                            <h2 id="servers-title">Trusted by server teams and communities.</h2>
-                            <p>Logos from Minecraft servers I have helped with setup, configuration, development, or optimization work.</p>
+                            <h2 id="servers-title">Trusted by servers and communities.</h2>
+                            <p>Minecraft servers I have helped with setup, configuration, development, or optimization work.</p>
                         </div>
                         <div class="logo-marquee reveal" aria-label="Servers ItzRenzo has worked with" data-server-logos></div>
                     </div>
