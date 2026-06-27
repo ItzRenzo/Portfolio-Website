@@ -457,14 +457,6 @@ button:focus-visible {
     line-height: 1.05;
 }
 
-.discord-meta p {
-    display: block;
-    margin-top: 0.45rem;
-    color: #8e96a8;
-    font-size: 0.92rem;
-    font-weight: 800;
-}
-
 .discord-meta span {
     display: inline-flex;
     margin-top: 0.5rem;

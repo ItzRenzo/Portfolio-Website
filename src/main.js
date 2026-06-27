@@ -123,10 +123,8 @@ function setDiscordPresence(status = "unknown", customText = "") {
 function setDiscordIdentity(profile, user = null) {
     const avatar = document.querySelector("[data-discord-avatar]");
     const name = document.querySelector("[data-discord-name]");
-    const profileUrl = document.querySelector("[data-discord-url]");
     const card = document.querySelector("[data-discord-card]");
     const displayName = user?.global_name || user?.display_name || profile.displayName || site.name;
-    const displayUrl = profile.profileUrl ?? profile.href?.replace(/^https?:\/\//, "") ?? `@${profile.username ?? "itzrenzo"}`;
 
     if (avatar) {
         avatar.src = getDiscordAvatarUrl(user, profile.avatar || site.profileImage);
@@ -135,7 +133,6 @@ function setDiscordIdentity(profile, user = null) {
     }
 
     if (name) name.textContent = displayName;
-    if (profileUrl) profileUrl.textContent = displayUrl;
     if (card) card.href = profile.href ?? "#contact";
 }
 
@@ -201,9 +198,16 @@ function normalizeDiscordPresence(payload) {
         };
     }
 
+    const activities = payload?.activities ?? [];
+    const clientStatus = payload?.client_status ?? {};
+    const isEmptyOffline =
+        payload?.status === "offline" &&
+        activities.length === 0 &&
+        Object.keys(clientStatus).length === 0;
+
     return {
-        status: payload?.status ?? "unknown",
-        activities: payload?.activities ?? [],
+        status: isEmptyOffline ? "unknown" : payload?.status ?? "unknown",
+        activities,
         user: null
     };
 }
