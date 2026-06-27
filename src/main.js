@@ -91,6 +91,7 @@ function renderHero() {
 }
 
 function getDiscordAvatarUrl(user, fallbackAvatar) {
+    if (user?.avatar_url) return user.avatar_url;
     if (!user?.id || !user?.avatar) return fallbackAvatar;
 
     const extension = user.avatar.startsWith("a_") ? "gif" : "webp";
@@ -208,8 +209,18 @@ function normalizeDiscordPresence(payload) {
     return {
         status: isEmptyOffline ? "unknown" : payload?.status ?? "unknown",
         activities,
-        user: null
+        user: payload?.user ?? null
     };
+}
+
+function getDiscordPresenceUrl(profile) {
+    const configuredApi =
+        import.meta.env.VITE_DISCORD_PRESENCE_API ||
+        profile.presenceApi ||
+        "https://api.statusbadges.me/presence";
+    const presenceApi = configuredApi.replace(/\/+$/, "");
+
+    return `${presenceApi}/${encodeURIComponent(profile.userId)}`;
 }
 
 async function fetchDiscordPresence(profile) {
@@ -219,8 +230,7 @@ async function fetchDiscordPresence(profile) {
     }
 
     try {
-        const presenceApi = profile.presenceApi ?? "https://api.statusbadges.me/presence";
-        const response = await fetch(`${presenceApi}/${profile.userId}`, { cache: "no-store" });
+        const response = await fetch(getDiscordPresenceUrl(profile), { cache: "no-store" });
         if (!response.ok) throw new Error("Discord presence request failed");
 
         const payload = await response.json();

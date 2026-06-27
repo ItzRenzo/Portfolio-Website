@@ -281,6 +281,12 @@ button:focus-visible {
     line-height: 0.94;
 }
 
+.hero-title-compact {
+    max-width: 13ch;
+    font-size: clamp(2.25rem, 6vw, 4.75rem);
+    line-height: 1.02;
+}
+
 .hero-title .accent {
     color: var(--accent);
     text-shadow: 0 0 42px rgba(63, 172, 255, 0.42);
