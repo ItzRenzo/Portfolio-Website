@@ -1,0 +1,125 @@
+{
+    "name": "ItzRenzo",
+    "role": "Minecraft Developer",
+    "availability": "Available for Projects",
+    "profileImage": "https://cdn.builtbybit.com/avatars/o/435/435252.jpg?1730998482",
+    "hero": {
+        "eyebrow": "Minecraft Server Setups and Plugin Development",
+        "title": "Build a Minecraft server players remember.",
+        "copy": "I create polished Minecraft server setups, custom plugin configurations, and gameplay systems for owners who want a clean launch without the usual setup grind."
+    },
+    "metrics": [
+        {
+            "value": "{featuredProjectCount}+",
+            "label": "Featured builds"
+        },
+        {
+            "value": "3+",
+            "label": "Years experience"
+        },
+        {
+            "value": "20+",
+            "label": "Clients"
+        },
+        {
+            "value": "{galleryCount}",
+            "label": "Gallery previews"
+        }
+    ],
+    "trust": [
+        {
+            "label": "BuiltByBit",
+            "description": "Premium Minecraft resources"
+        },
+        {
+            "label": "GitHub",
+            "description": "Development workflow"
+        },
+        {
+            "label": "Discord",
+            "description": "Client communication"
+        },
+        {
+            "label": "YouTube",
+            "description": "Showcases and tutorials"
+        },
+        {
+            "label": "Minecraft",
+            "description": "Server systems and gameplay"
+        }
+    ],
+    "consolePoints": [
+        "RPG progression configs",
+        "Animated menu systems",
+        "Custom mobs and bosses",
+        "Launch-ready server polish"
+    ],
+    "expertise": [
+        {
+            "title": "Server Setups",
+            "icon": "server",
+            "items": [
+                "SkyBlock and RPG progression",
+                "Economy, quests, and rewards",
+                "Balanced gameplay loops",
+                "Launch-ready configuration"
+            ]
+        },
+        {
+            "title": "Plugin Configuration",
+            "icon": "code",
+            "items": [
+                "EcoItems and EcoArmor",
+                "MythicMobs skills and bosses",
+                "TAB, scoreboards, and holograms",
+                "Performance-minded setup"
+            ]
+        },
+        {
+            "title": "Player Interfaces",
+            "icon": "layout",
+            "items": [
+                "DeluxeMenus GUI flows",
+                "Reward and pet menus",
+                "Readable navigation systems",
+                "Consistent visual hierarchy"
+            ]
+        },
+        {
+            "title": "Delivery Polish",
+            "icon": "shield",
+            "items": [
+                "Clean documentation",
+                "Organized handoff",
+                "Server-owner friendly structure",
+                "Iterative improvements"
+            ]
+        }
+    ],
+    "contacts": [
+        {
+            "label": "GitHub",
+            "detail": "View repositories",
+            "href": "https://github.com/ItzRenzo",
+            "icon": "github"
+        },
+        {
+            "label": "Discord",
+            "detail": "itzrenzo",
+            "href": "https://discord.gg/qTQGTNcApS",
+            "icon": "discord"
+        },
+        {
+            "label": "BuiltByBit",
+            "detail": "View my resources",
+            "href": "https://builtbybit.com/creators/itzrenzo.435252",
+            "icon": "store"
+        },
+        {
+            "label": "YouTube",
+            "detail": "Plugin tutorials and showcases",
+            "href": "https://www.youtube.com/@ItzRenzo",
+            "icon": "youtube"
+        }
+    ]
+}

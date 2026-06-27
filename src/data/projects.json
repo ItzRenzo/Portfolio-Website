@@ -1,0 +1,177 @@
+﻿[
+    {
+        "id":  1,
+        "title":  "SkyBlock Setup - COMING SOON",
+        "slug":  "skyblock-setup-coming-soon",
+        "description":  "A Hypixel SkyBlock-inspired island economy setup with islands, minions, auction house and bazaar systems, slayer and dungeon mechanics, collections and progression, custom items, reforges, pets, and cooperative profiles - built for server owners who want a polished, feature-complete SkyBlock experience ready to deploy.",
+        "category":  "SkyBlock",
+        "imageUrl":  "https://builtbybit.com/attachments/copy-of-minecraft-skills-png.1102287/?preset=fullr1",
+        "externalUrl":  "https://builtbybit.com/resources/hypixel-skyblock-setup/",
+        "tags":  [
+                     "Islands",
+                     "Minions",
+                     "Auction House",
+                     "Bazaar",
+                     "Slayer",
+                     "Dungeons",
+                     "Collections",
+                     "Custom Items",
+                     "Pets",
+                     "Reforges",
+                     "Profiles",
+                     "Quests"
+                 ],
+        "featured":  true,
+        "displayOrder":  1
+    },
+    {
+        "id":  2,
+        "title":  "RPG Weapons | EcoItems Config",
+        "slug":  "rpg-weapons-ecoitems-config",
+        "description":  "A comprehensive RPG weapons configuration for EcoItems, featuring custom stats, abilities, and integration with popular RPG plugins.",
+        "category":  "Configuration",
+        "imageUrl":  "https://builtbybit.com/attachments/your-paragraph-text-1-png.841210/?preset=fullr1",
+        "externalUrl":  "https://builtbybit.com/resources/rpg-weapons-ecoitems-config.54465",
+        "tags":  [
+                     "Configuration",
+                     "EcoItems",
+                     "Weapons",
+                     "RPG",
+                     "MythicMobs"
+                 ],
+        "featured":  true,
+        "displayOrder":  2
+    },
+    {
+        "id":  3,
+        "title":  "RPG Armors | EcoArmor Config",
+        "slug":  "rpg-armors-ecoarmor-config",
+        "description":  "A comprehensive RPG armors configuration for EcoArmor, featuring custom stats, abilities, and integration with popular RPG plugins.",
+        "category":  "Configuration",
+        "imageUrl":  "https://builtbybit.com/attachments/copy-of-copy-of-your-paragraph-text-1495-x-374-px-png.852031/?preset=fullr1",
+        "externalUrl":  "https://builtbybit.com/resources/rpg-armors-ecoarmor-config.55805",
+        "tags":  [
+                     "Configuration",
+                     "EcoArmor",
+                     "Armors",
+                     "RPG",
+                     "MythicMobs"
+                 ],
+        "featured":  true,
+        "displayOrder":  3
+    },
+    {
+        "id":  4,
+        "title":  "RPG Skills | EcoSkills Config - COMING SOON",
+        "slug":  "rpg-skills-ecoskills-config",
+        "description":  "A comprehensive RPG skills configuration for EcoSkills, featuring custom abilities, skill trees, and integration with popular RPG plugins.",
+        "category":  "Configuration",
+        "imageUrl":  "https://builtbybit.com/attachments/minecraft-skills-1-png.1100351/?preset=fullr1",
+        "externalUrl":  "https://builtbybit.com/resources/castle-siege-setup.4/",
+        "tags":  [
+                     "Configuration",
+                     "EcoSkills",
+                     "Skills",
+                     "RPG",
+                     "MythicMobs"
+                 ],
+        "featured":  true,
+        "displayOrder":  4
+    },
+    {
+        "id":  6,
+        "title":  "Et Quia Sed",
+        "slug":  "et-quia-sed",
+        "description":  "Atque eaque est iusto. Labore et doloremque quibusdam laboriosam provident.",
+        "category":  "PvP",
+        "imageUrl":  "https://via.placeholder.com/800x600/1a1a1a/ffffff?text=et+quia+sed",
+        "externalUrl":  "http://wolf.com/cumque-assumenda-facere-voluptatum-sapiente-eius-soluta-laboriosam",
+        "tags":  [
+                     "Custom Menus",
+                     "Custom GUI",
+                     "Optimized",
+                     "Multi-Arena"
+                 ],
+        "featured":  false,
+        "displayOrder":  10
+    },
+    {
+        "id":  10,
+        "title":  "Et Velit Magni",
+        "slug":  "et-velit-magni",
+        "description":  "Necessitatibus qui illo autem porro animi modi. Velit vitae ab aut est. Sit quas voluptates amet cumque dolore.",
+        "category":  "Minigame",
+        "imageUrl":  "https://via.placeholder.com/800x600/1a1a1a/ffffff?text=et+velit+magni",
+        "externalUrl":  "https://bogan.net/nihil-rem-qui-in-impedit-consequatur.html",
+        "tags":  [
+                     "Stats Tracking",
+                     "Optimized",
+                     "Multi-Arena"
+                 ],
+        "featured":  false,
+        "displayOrder":  16
+    },
+    {
+        "id":  9,
+        "title":  "Impedit Recusandae Ea",
+        "slug":  "impedit-recusandae-ea",
+        "description":  "Exercitationem voluptates inventore amet. Pariatur veritatis voluptatem quo est. Incidunt distinctio molestiae rerum delectus labore nihil.",
+        "category":  "PvP",
+        "imageUrl":  "https://via.placeholder.com/800x600/1a1a1a/ffffff?text=impedit+recusandae+ea",
+        "externalUrl":  "https://www.west.info/earum-rem-et-quas-eveniet-tempore-sed-corrupti",
+        "tags":  [
+                     "Multi-Arena",
+                     "Stats Tracking"
+                 ],
+        "featured":  false,
+        "displayOrder":  17
+    },
+    {
+        "id":  5,
+        "title":  "Et Impedit Eaque",
+        "slug":  "et-impedit-eaque",
+        "description":  "Fugit repellat nisi officiis sed magnam error et. Aut cupiditate hic soluta ut sunt nesciunt tempora. Explicabo enim nisi corrupti nostrum.",
+        "category":  "Survival",
+        "imageUrl":  "https://via.placeholder.com/800x600/1a1a1a/ffffff?text=et+impedit+eaque",
+        "externalUrl":  "http://www.zemlak.com/",
+        "tags":  [
+                     "Custom Menus",
+                     "Multi-Arena",
+                     "Stats Tracking"
+                 ],
+        "featured":  false,
+        "displayOrder":  49
+    },
+    {
+        "id":  8,
+        "title":  "Doloribus Quis Asperiores",
+        "slug":  "doloribus-quis-asperiores",
+        "description":  "Ab ad nobis voluptate magni laborum ea voluptatem. Eos velit error quaerat. Provident praesentium aut quis ipsam voluptate at.",
+        "category":  "PvP",
+        "imageUrl":  "https://via.placeholder.com/800x600/1a1a1a/ffffff?text=doloribus+quis+asperiores",
+        "externalUrl":  "http://emmerich.biz/labore-quod-voluptas-et-et-dolor",
+        "tags":  [
+                     "Custom GUI",
+                     "Optimized"
+                 ],
+        "featured":  false,
+        "displayOrder":  61
+    },
+    {
+        "id":  7,
+        "title":  "Facilis Aut Et",
+        "slug":  "facilis-aut-et",
+        "description":  "Nam molestiae doloremque tempora aut aspernatur aut sed pariatur. Esse hic et non et.",
+        "category":  "Skyblock",
+        "imageUrl":  "https://via.placeholder.com/800x600/1a1a1a/ffffff?text=facilis+aut+et",
+        "externalUrl":  "http://bailey.biz/quibusdam-illo-assumenda-unde-dolorem-nihil-rerum.html",
+        "tags":  [
+                     "Custom GUI",
+                     "Stats Tracking",
+                     "Custom Menus",
+                     "Multi-Arena"
+                 ],
+        "featured":  false,
+        "displayOrder":  90
+    }
+]
