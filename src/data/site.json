@@ -26,9 +26,7 @@
         "username": "itzrenzo",
         "avatar": "/renzo-profile/renzo-profile.jpg",
         "href": "https://discord.com/users/379976158915067904",
-        "fallbackStatus": "Status unavailable",
-        "presenceApi": "http://23.27.211.33:25714/api/discord-presence",
-        "refreshMs": 60000
+        "status": "Available"
     },
     "metrics": [
         {
@@ -94,6 +92,11 @@
                 "primary": true
             },
             {
+                "label": "NetherForge GitHub",
+                "href": "https://github.com/NetherForge-Studios",
+                "icon": "github"
+            },
+            {
                 "label": "Order on Discord",
                 "href": "https://discord.gg/J49Z6vkc34",
                 "icon": "discord"
@@ -155,8 +158,8 @@
         },
         {
             "label": "Discord",
-            "detail": "itzrenzo",
-            "href": "https://discord.gg/qTQGTNcApS",
+            "detail": "ItzRenzo",
+            "href": "https://discord.com/users/379976158915067904",
             "icon": "discord"
         },
         {

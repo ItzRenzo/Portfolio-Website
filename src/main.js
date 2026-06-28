@@ -17,35 +17,7 @@ import {
 
 const marketplaceProjects = byDisplayOrder(projects).filter((project) => project.featured !== false);
 const orderedGallery = byDisplayOrder(gallery);
-const discordStatusMeta = {
-    online: {
-        label: "Online",
-        className: "is-online"
-    },
-    idle: {
-        label: "Idle",
-        className: "is-idle"
-    },
-    dnd: {
-        label: "Do not disturb",
-        className: "is-dnd"
-    },
-    offline: {
-        label: "Offline",
-        className: "is-offline"
-    },
-    unknown: {
-        label: "Status unavailable",
-        className: "is-unknown"
-    }
-};
-const discordActivityTypes = {
-    0: "Playing",
-    1: "Streaming",
-    2: "Listening",
-    3: "Watching",
-    5: "Competing"
-};
+const discordStatusClasses = ["is-online", "is-idle", "is-dnd", "is-offline", "is-unknown"];
 
 function applyHeroBackground() {
     if (!site.backgroundImage) return;
@@ -90,172 +62,35 @@ function renderHero() {
     }
 }
 
-function getDiscordAvatarUrl(user, fallbackAvatar) {
-    if (user?.avatar_url) return user.avatar_url;
-    if (!user?.id || !user?.avatar) return fallbackAvatar;
-
-    const extension = user.avatar.startsWith("a_") ? "gif" : "webp";
-    return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=256`;
-}
-
-function setDiscordPresence(status = "unknown", customText = "") {
-    const statusKey = discordStatusMeta[status] ? status : "unknown";
-    const meta = discordStatusMeta[statusKey];
+function renderDiscordProfile() {
+    const profile = site.discordProfile ?? {};
+    const avatar = document.querySelector("[data-discord-avatar]");
+    const name = document.querySelector("[data-discord-name]");
     const statusText = document.querySelector("[data-discord-status-text]");
     const dot = document.querySelector("[data-discord-status-dot]");
     const card = document.querySelector("[data-discord-card]");
-    const readableStatus = customText ? (statusKey === "unknown" ? customText : `${meta.label} - ${customText}`) : meta.label;
-
-    if (statusText) {
-        statusText.textContent = readableStatus;
-    }
-
-    [statusText, dot].forEach((element) => {
-        if (!element) return;
-        element.classList.remove("is-online", "is-idle", "is-dnd", "is-offline", "is-unknown");
-        element.classList.add(meta.className);
-    });
-
-    if (card) {
-        card.setAttribute("aria-label", `Open Discord profile. Current status: ${readableStatus}.`);
-    }
-}
-
-function setDiscordIdentity(profile, user = null) {
-    const avatar = document.querySelector("[data-discord-avatar]");
-    const name = document.querySelector("[data-discord-name]");
-    const card = document.querySelector("[data-discord-card]");
-    const displayName = user?.global_name || user?.display_name || profile.displayName || site.name;
+    const displayName = profile.displayName || site.name;
+    const status = profile.status || "Available";
 
     if (avatar) {
-        avatar.src = getDiscordAvatarUrl(user, profile.avatar || site.profileImage);
+        avatar.src = profile.avatar || site.profileImage;
         avatar.decoding = "async";
         avatar.fetchPriority = "high";
     }
 
     if (name) name.textContent = displayName;
-    if (card) card.href = profile.href ?? "#contact";
-}
-
-function getCustomDiscordStatus(activities = []) {
-    return activities.find((activity) => activity.type === 4)?.state ?? "";
-}
-
-function getPrimaryDiscordActivity(activities = []) {
-    return activities.find((activity) => activity.type !== 4 && activity.name) ?? null;
-}
-
-function formatActivityElapsed(timestamps = {}) {
-    if (!timestamps.start) return "";
-
-    const start = Number(timestamps.start);
-    const startedAt = start < 1000000000000 ? start * 1000 : start;
-    const elapsedMinutes = Math.max(0, Math.floor((Date.now() - startedAt) / 60000));
-    const hours = Math.floor(elapsedMinutes / 60);
-    const minutes = elapsedMinutes % 60;
-
-    if (hours > 0) return `${hours}h ${minutes}m elapsed`;
-    if (minutes > 0) return `${minutes}m elapsed`;
-    return "Just started";
-}
-
-function renderDiscordActivity(activities = []) {
-    const activity = getPrimaryDiscordActivity(activities);
-    const target = document.querySelector("[data-discord-activity]");
-    if (!target) return;
-
-    if (!activity) {
-        target.classList.add("is-hidden");
-        return;
+    if (statusText) {
+        statusText.textContent = status;
+        statusText.classList.remove(...discordStatusClasses);
+        statusText.classList.add("is-online");
     }
-
-    const type = document.querySelector("[data-discord-activity-type]");
-    const name = document.querySelector("[data-discord-activity-name]");
-    const detail = document.querySelector("[data-discord-activity-detail]");
-    const time = document.querySelector("[data-discord-activity-time]");
-    const detailText = activity.details || activity.state || "";
-    const elapsed = formatActivityElapsed(activity.timestamps);
-
-    if (type) type.textContent = discordActivityTypes[activity.type] ?? "Active";
-    if (name) name.textContent = activity.name;
-    if (detail) {
-        detail.textContent = detailText;
-        detail.hidden = !detailText;
+    if (dot) {
+        dot.classList.remove(...discordStatusClasses);
+        dot.classList.add("is-online");
     }
-    if (time) {
-        time.textContent = elapsed;
-        time.hidden = !elapsed;
-    }
-
-    target.classList.remove("is-hidden");
-}
-
-function normalizeDiscordPresence(payload) {
-    if (payload?.success && payload.data) {
-        return {
-            status: payload.data.discord_status ?? "unknown",
-            activities: payload.data.activities ?? [],
-            user: payload.data.discord_user ?? null
-        };
-    }
-
-    const activities = payload?.activities ?? [];
-    const clientStatus = payload?.client_status ?? {};
-    const isEmptyOffline =
-        payload?.status === "offline" &&
-        activities.length === 0 &&
-        Object.keys(clientStatus).length === 0;
-
-    return {
-        status: isEmptyOffline ? "unknown" : payload?.status ?? "unknown",
-        activities,
-        user: payload?.user ?? null
-    };
-}
-
-function getDiscordPresenceUrl(profile) {
-    const configuredApi =
-        import.meta.env.VITE_DISCORD_PRESENCE_API ||
-        profile.presenceApi ||
-        "https://api.statusbadges.me/presence";
-    const presenceApi = configuredApi.replace(/\/+$/, "");
-
-    return `${presenceApi}/${encodeURIComponent(profile.userId)}`;
-}
-
-async function fetchDiscordPresence(profile) {
-    if (!profile.userId) {
-        setDiscordPresence("unknown", profile.fallbackStatus ?? "");
-        return;
-    }
-
-    try {
-        const response = await fetch(getDiscordPresenceUrl(profile), { cache: "no-store" });
-        if (!response.ok) throw new Error("Discord presence request failed");
-
-        const payload = await response.json();
-        const presence = normalizeDiscordPresence(payload);
-
-        setDiscordIdentity(profile, presence.user);
-        setDiscordPresence(presence.status, getCustomDiscordStatus(presence.activities));
-        renderDiscordActivity(presence.activities);
-    } catch {
-        setDiscordPresence("unknown", profile.fallbackStatus ?? "Status unavailable");
-        renderDiscordActivity([]);
-    }
-}
-
-function renderDiscordProfile() {
-    const profile = site.discordProfile ?? {};
-    const refreshMs = Number(profile.refreshMs) || 60000;
-
-    setDiscordIdentity(profile);
-    setDiscordPresence("unknown", profile.userId ? "Checking live status" : profile.fallbackStatus);
-    renderDiscordActivity([]);
-    fetchDiscordPresence(profile);
-
-    if (profile.userId && refreshMs >= 30000) {
-        window.setInterval(() => fetchDiscordPresence(profile), refreshMs);
+    if (card) {
+        card.href = profile.href ?? "#contact";
+        card.setAttribute("aria-label", `Open Discord profile. ${displayName} is ${status}.`);
     }
 }
 
